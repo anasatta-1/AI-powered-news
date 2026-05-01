@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const Parser = require('rss-parser');
@@ -6,10 +7,10 @@ const db = require('./db.cjs');
 
 const app = express();
 const parser = new Parser();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // --- GEMINI AI ENGINE ---
-const genAI = new GoogleGenerativeAI('AIzaSyAniqMMY38r4Gm4EBFS7-SPX6En8sptMkc');
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
 app.use(cors());
